@@ -200,3 +200,37 @@
         }, 100);
     }, 2e3);
 })();
+
+
+    const music = document.getElementById('bgMusic');
+ 
+    const backBtn = document.getElementById('backBtn');
+
+
+  // ▶️ Musik otomatis diputar setelah halaman dimuat
+  window.addEventListener("load", () => {
+    // sebagian browser butuh interaksi dulu, jadi kita coba play() setelah sedikit delay
+    setTimeout(() => {
+      music.play().catch(() => {
+        // kalau browser blokir autoplay, tunggu klik pertama
+        document.body.addEventListener("click", function startMusic() {
+          music.play();
+          document.body.removeEventListener("click", startMusic);
+        });
+      });
+    }, 500);
+  });
+
+  // ⏹ Saat tombol kembali ditekan, musik dimatikan
+  backBtn.addEventListener("click", () => {
+    music.pause();
+    music.currentTime = 0;
+    window.history.back();
+  });
+
+    // 🔸 Tombol kembali
+    backBtn.addEventListener('click', () => {
+      music.pause(); // Hentikan musik dulu agar tidak double
+      music.currentTime = 0;
+      window.location.href = "https://naufaell99.github.io/hbdd-sayang-ku/"; // Ganti ke link tujuan kamu
+    });
